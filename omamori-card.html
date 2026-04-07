@@ -136,7 +136,8 @@
         <div class="setting-row">
           <span class="setting-label">卦の位置</span>
           <select id="positionSelect">
-            <option value="top" selected>上部</option> <option value="center">中央</option>
+            <option value="top" selected>上部</option>
+            <option value="center">中央</option>
             <option value="bottom">下部</option>
           </select>
         </div>
@@ -151,7 +152,8 @@
         <div class="setting-row">
           <span class="setting-label">爻の色</span>
           <select id="colorSelect">
-            <option value="gold" selected>ゴールド</option> <option value="white">ホワイト</option>
+            <option value="gold" selected>ゴールド</option>
+            <option value="white">ホワイト</option>
             <option value="dark">ダーク（黒）</option>
           </select>
         </div>
@@ -160,7 +162,8 @@
           <select id="textSelect">
             <option value="full">卦名＋読み仮名</option>
             <option value="name">卦名のみ</option>
-            <option value="none" selected>表示しない</option> </select>
+            <option value="none" selected>表示しない</option>
+          </select>
         </div>
         <button class="btn btn-primary" onclick="renderCard()">✦ プレビューを更新</button>
       </div>
@@ -254,7 +257,7 @@ let selectedHex = null;
 let uploadedImage = null;
 
 function drawHexagram(ctx, lines, x, y, width, color) {
-  const lineH = width * 0.085; 
+  const lineH = width * 0.12; // ✨ 線の太さを 0.085 -> 0.12 に変更
   const gap = width * 0.105; 
   const breakW = width * 0.20; 
 
@@ -395,8 +398,8 @@ function renderCard() {
   const textMode = document.getElementById('textSelect').value;
   const pos = document.getElementById('positionSelect').value;
 
-  const hexW = sizeKey==='large' ? canvas.width*0.10 : sizeKey==='small' ? canvas.width*0.07 : canvas.width*0.085;
-  const lineH = hexW * 0.085;
+  const hexW = sizeKey==='large' ? canvas.width*0.10 : sizeKey==='small' ? canvas.width*0.04 : canvas.width*0.06;
+  const lineH = hexW * 0.12; // ✨ 線の太さを 0.085 -> 0.12 に変更
   const gap = hexW * 0.105;
   const hexH = lineH * 6 + gap * 5;
   const nameSize = hexW * 0.30;
@@ -410,7 +413,6 @@ function renderCard() {
   const cx = canvas.width * 0.5;
   let topY;
 
-  // ✨ [修正点1] 'top'（上部）の開始位置をcanvas.height*0.12から*0.11に調整（位置上げ）
   if (pos==='top') topY = canvas.height*0.11;
   else if (pos==='bottom') topY = canvas.height - totalH - canvas.height*0.12;
   else topY = (canvas.height - totalH) * 0.5;
@@ -492,8 +494,8 @@ function downloadCard() {
   const textMode = document.getElementById('textSelect').value;
   const pos = document.getElementById('positionSelect').value;
 
-  const hexW = sizeKey==='large' ? hiCanvas.width*0.10 : sizeKey==='small' ? hiCanvas.width*0.07 : hiCanvas.width*0.085;
-  const lineH = hexW * 0.085;
+  const hexW = sizeKey==='large' ? hiCanvas.width*0.10 : sizeKey==='small' ? hiCanvas.width*0.04 : hiCanvas.width*0.06;
+  const lineH = hexW * 0.12; // ✨ 線の太さを 0.085 -> 0.12 に変更
   const gapY = hexW * 0.105;
   const breakW = hexW * 0.20;
   const hexH = lineH*6 + gapY*5;
@@ -508,7 +510,6 @@ function downloadCard() {
   const cx = hiCanvas.width * 0.5;
   let topY;
 
-  // ✨ [修正点2] ダウンロードCanvasでも'top'（上部）の開始位置を*0.11に調整（位置上げ）
   if (pos==='top') topY = hiCanvas.height*0.11;
   else if (pos==='bottom') topY = hiCanvas.height - totalH - hiCanvas.height*0.12;
   else topY = (hiCanvas.height - totalH) * 0.5;
