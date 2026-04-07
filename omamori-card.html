@@ -136,8 +136,7 @@
         <div class="setting-row">
           <span class="setting-label">卦の位置</span>
           <select id="positionSelect">
-            <option value="top">上部</option>
-            <option value="center">中央</option>
+            <option value="top" selected>上部</option> <option value="center">中央</option>
             <option value="bottom">下部</option>
           </select>
         </div>
@@ -152,8 +151,7 @@
         <div class="setting-row">
           <span class="setting-label">爻の色</span>
           <select id="colorSelect">
-            <option value="gold">ゴールド</option>
-            <option value="white">ホワイト</option>
+            <option value="gold" selected>ゴールド</option> <option value="white">ホワイト</option>
             <option value="dark">ダーク（黒）</option>
           </select>
         </div>
@@ -162,8 +160,7 @@
           <select id="textSelect">
             <option value="full">卦名＋読み仮名</option>
             <option value="name">卦名のみ</option>
-            <option value="none">表示しない</option>
-          </select>
+            <option value="none" selected>表示しない</option> </select>
         </div>
         <button class="btn btn-primary" onclick="renderCard()">✦ プレビューを更新</button>
       </div>
@@ -386,7 +383,6 @@ function renderCard() {
   const ctx = canvas.getContext('2d');
   const cont = document.getElementById('canvasContainer');
 
-  // ✨ プレビューの最大幅を900pxに拡大（画質向上）
   const maxW = Math.min(cont.clientWidth - 2, 900);
   const ratio = uploadedImage.height / uploadedImage.width;
   canvas.width = maxW;
@@ -414,8 +410,8 @@ function renderCard() {
   const cx = canvas.width * 0.5;
   let topY;
 
-  // ✨ 'top'（上部）の開始位置を*0.18に調整（位置下げ）
-  if (pos==='top') topY = canvas.height*0.18;
+  // ✨ [修正点1] 'top'（上部）の開始位置をcanvas.height*0.12から*0.11に調整（位置上げ）
+  if (pos==='top') topY = canvas.height*0.11;
   else if (pos==='bottom') topY = canvas.height - totalH - canvas.height*0.12;
   else topY = (canvas.height - totalH) * 0.5;
 
@@ -512,8 +508,8 @@ function downloadCard() {
   const cx = hiCanvas.width * 0.5;
   let topY;
 
-  // ✨ ダウンロードCanvasでも'top'（上部）の開始位置を*0.18に調整
-  if (pos==='top') topY = hiCanvas.height*0.18;
+  // ✨ [修正点2] ダウンロードCanvasでも'top'（上部）の開始位置を*0.11に調整（位置上げ）
+  if (pos==='top') topY = hiCanvas.height*0.11;
   else if (pos==='bottom') topY = hiCanvas.height - totalH - hiCanvas.height*0.12;
   else topY = (hiCanvas.height - totalH) * 0.5;
 
@@ -566,7 +562,6 @@ function downloadCard() {
     ctx.restore();
   }
 
-  // ✨ ダウンロード画像にも美しいフォント（Noto Serif JP）を指定
   const dText = (text, sz, y, alpha=1) => {
     ctx.save();
     ctx.font=`${sz}px "Noto Serif JP", serif`;
