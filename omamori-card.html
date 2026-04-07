@@ -187,97 +187,89 @@
 // 64卦データ（爻は下から上の順、1=陽━、0=陰- -）
 // ============================================================
 const hexagrams = [
-  { no:1,  name:'乾為天',   kana:'けんいてん',        lines:[1,1,1,1,1,1] },
-  { no:2,  name:'坤為地',   kana:'こんいち',          lines:[0,0,0,0,0,0] },
-  { no:3,  name:'水雷屯',   kana:'すいらいちゅん',    lines:[1,0,0,0,1,0] },
-  { no:4,  name:'山水蒙',   kana:'さんすいもう',      lines:[0,1,0,0,0,1] },
-  { no:5,  name:'水天需',   kana:'すいてんじゅ',      lines:[1,1,1,0,1,0] },
-  { no:6,  name:'天水訟',   kana:'てんすいしょう',    lines:[0,1,0,1,1,1] },
-  { no:7,  name:'地水師',   kana:'ちすいし',          lines:[0,1,0,0,0,0] },
-  { no:8,  name:'水地比',   kana:'すいちひ',          lines:[0,0,0,0,1,0] },
-  { no:9,  name:'風天小畜', kana:'ふうてんしょうちく', lines:[1,1,1,0,1,1] },
-  { no:10, name:'天澤履',   kana:'てんたくり',        lines:[0,1,1,1,1,1] },
-  { no:11, name:'地天泰',   kana:'ちてんたい',        lines:[1,1,1,0,0,0] },
-  { no:12, name:'天地否',   kana:'てんちひ',          lines:[0,0,0,1,1,1] },
-  { no:13, name:'天火同人', kana:'てんかどうじん',    lines:[1,0,1,1,1,1] },
-  { no:14, name:'火天大有', kana:'かてんたいゆう',    lines:[1,1,1,1,0,1] },
-  { no:15, name:'地山謙',   kana:'ちざんけん',        lines:[0,0,1,0,0,0] },
-  { no:16, name:'雷地豫',   kana:'らいちよ',          lines:[0,0,0,1,0,0] },
-  { no:17, name:'澤雷隨',   kana:'たくらいずい',      lines:[1,0,0,0,1,1] },
-  { no:18, name:'山風蠱',   kana:'さんぷうこ',        lines:[1,1,0,0,0,1] },
-  { no:19, name:'地澤臨',   kana:'ちたくりん',        lines:[1,1,0,0,0,0] },
-  { no:20, name:'風地觀',   kana:'ふうちかん',        lines:[0,0,0,0,1,1] },
-  { no:21, name:'火雷噬嗑', kana:'からいぜいごう',    lines:[1,0,0,1,0,1] },
-  { no:22, name:'山火賁',   kana:'さんかひ',          lines:[1,0,1,0,0,1] },
-  { no:23, name:'山地剝',   kana:'さんちはく',        lines:[0,0,0,0,0,1] },
-  { no:24, name:'地雷復',   kana:'ちらいふく',        lines:[1,0,0,0,0,0] },
-  { no:25, name:'天雷無妄', kana:'てんらいむぼう',    lines:[1,0,0,1,1,1] },
-  { no:26, name:'山天大畜', kana:'さんてんたいちく',  lines:[1,1,1,0,0,1] },
-  { no:27, name:'山雷頤',   kana:'さんらいい',        lines:[1,0,0,0,0,1] },
-  { no:28, name:'澤風大過', kana:'たくふうたいか',    lines:[0,1,1,1,1,0] },
-  { no:29, name:'坎為水',   kana:'かんいすい',        lines:[0,1,0,0,1,0] },
-  { no:30, name:'離為火',   kana:'りいか',            lines:[1,0,1,1,0,1] },
-  { no:31, name:'澤山咸',   kana:'たくざんかん',      lines:[0,0,1,1,1,0] },
-  { no:32, name:'雷風恆',   kana:'らいふうこう',      lines:[0,1,1,0,0,1] },
-  { no:33, name:'天山遯',   kana:'てんざんとん',      lines:[0,0,1,1,1,1] },
-  { no:34, name:'雷天大壯', kana:'らいてんたいそう',  lines:[1,1,1,1,0,0] },
-  { no:35, name:'火地晉',   kana:'かちしん',          lines:[0,0,0,1,0,1] },
-  { no:36, name:'地火明夷', kana:'ちかめいい',        lines:[1,0,1,0,0,0] },
-  { no:37, name:'風火家人', kana:'ふうかかじん',      lines:[1,0,1,0,1,1] },
-  { no:38, name:'火澤睽',   kana:'かたくけい',        lines:[1,1,0,1,0,1] },
-  { no:39, name:'水山蹇',   kana:'すいさんけん',      lines:[0,0,1,0,1,0] },
-  { no:40, name:'雷水解',   kana:'らいすいかい',      lines:[0,1,0,1,0,0] },
-  { no:41, name:'山澤損',   kana:'さんたくそん',      lines:[1,1,0,0,0,1] },
-  { no:42, name:'風雷益',   kana:'ふうらいえき',      lines:[1,0,0,0,1,1] },
-  { no:43, name:'澤天夬',   kana:'たくてんかい',      lines:[1,1,1,1,1,0] },
-  { no:44, name:'天風姤',   kana:'てんぷうこう',      lines:[0,1,1,1,1,1] },
-  { no:45, name:'澤地萃',   kana:'たくちすい',        lines:[0,0,0,1,1,0] },
-  { no:46, name:'地風升',   kana:'ちふうしょう',      lines:[0,1,1,0,0,0] },
-  { no:47, name:'澤水困',   kana:'たくすいこん',      lines:[0,1,0,1,1,0] },
-  { no:48, name:'水風井',   kana:'すいふうせい',      lines:[0,1,1,0,1,0] },
-  { no:49, name:'澤火革',   kana:'たくかかく',        lines:[1,0,1,1,1,0] },
-  { no:50, name:'火風鼎',   kana:'かふうてい',        lines:[0,1,1,1,0,1] },
-  { no:51, name:'震為雷',   kana:'しんいらい',        lines:[1,0,0,1,0,0] },
-  { no:52, name:'艮為山',   kana:'ごんいさん',        lines:[0,0,1,0,0,1] },
-  { no:53, name:'風山漸',   kana:'ふうさんぜん',      lines:[0,0,1,0,1,1] },
-  { no:54, name:'雷澤歸妹', kana:'らいたくきまい',    lines:[1,1,0,1,0,0] },
-  { no:55, name:'雷火豐',   kana:'らいかほう',        lines:[1,0,1,1,0,0] },
-  { no:56, name:'火山旅',   kana:'かさんりょ',        lines:[0,0,1,1,0,1] },
-  { no:57, name:'巽為風',   kana:'そんいふう',        lines:[0,1,1,0,1,1] },
-  { no:58, name:'兌為澤',   kana:'だいたく',          lines:[1,1,0,1,1,0] },
-  { no:59, name:'風水渙',   kana:'ふうすいかん',      lines:[0,1,0,0,1,1] },
-  { no:60, name:'水澤節',   kana:'すいたくせつ',      lines:[1,1,0,0,1,0] },
-  { no:61, name:'風澤中孚', kana:'ふうたくちゅうふ',  lines:[1,1,0,0,1,1] },
-  { no:62, name:'雷山小過', kana:'らいさんしょうか',  lines:[0,0,1,1,0,0] },
-  { no:63, name:'水火既濟', kana:'すいかきせい',      lines:[1,0,1,0,1,0] },
-  { no:64, name:'火水未濟', kana:'かすいびせい',      lines:[0,1,0,1,0,1] },
+  { no:1, name:'乾為天', kana:'けんいてん', lines:[1,1,1,1,1,1] },
+  { no:2, name:'坤為地', kana:'こんいち', lines:[0,0,0,0,0,0] },
+  { no:3, name:'水雷屯', kana:'すいらいちゅん', lines:[1,0,0,0,1,0] },
+  { no:4, name:'山水蒙', kana:'さんすいもう', lines:[0,1,0,0,0,1] },
+  { no:5, name:'水天需', kana:'すいてんじゅ', lines:[1,1,1,0,1,0] },
+  { no:6, name:'天水訟', kana:'てんすいしょう', lines:[0,1,0,1,1,1] },
+  { no:7, name:'地水師', kana:'ちすいし', lines:[0,1,0,0,0,0] },
+  { no:8, name:'水地比', kana:'すいちひ', lines:[0,0,0,0,1,0] },
+  { no:9, name:'風天小畜', kana:'ふうてんしょうちく', lines:[1,1,1,0,1,1] },
+  { no:10, name:'天澤履', kana:'てんたくり', lines:[0,1,1,1,1,1] },
+  { no:11, name:'地天泰', kana:'ちてんたい', lines:[1,1,1,0,0,0] },
+  { no:12, name:'天地否', kana:'てんちひ', lines:[0,0,0,1,1,1] },
+  { no:13, name:'天火同人', kana:'てんかどうじん', lines:[1,0,1,1,1,1] },
+  { no:14, name:'火天大有', kana:'かてんたいゆう', lines:[1,1,1,1,0,1] },
+  { no:15, name:'地山謙', kana:'ちざんけん', lines:[0,0,1,0,0,0] },
+  { no:16, name:'雷地豫', kana:'らいちよ', lines:[0,0,0,1,0,0] },
+  { no:17, name:'澤雷隨', kana:'たくらいずい', lines:[1,0,0,0,1,1] },
+  { no:18, name:'山風蠱', kana:'さんぷうこ', lines:[1,1,0,0,0,1] },
+  { no:19, name:'地澤臨', kana:'ちたくりん', lines:[1,1,0,0,0,0] },
+  { no:20, name:'風地觀', kana:'ふうちかん', lines:[0,0,0,0,1,1] },
+  { no:21, name:'火雷噬嗑', kana:'からいぜいごう', lines:[1,0,0,1,0,1] },
+  { no:22, name:'山火賁', kana:'さんかひ', lines:[1,0,1,0,0,1] },
+  { no:23, name:'山地剝', kana:'さんちはく', lines:[0,0,0,0,0,1] },
+  { no:24, name:'地雷復', kana:'ちらいふく', lines:[1,0,0,0,0,0] },
+  { no:25, name:'天雷無妄', kana:'てんらいむぼう', lines:[1,0,0,1,1,1] },
+  { no:26, name:'山天大畜', kana:'さんてんたいちく', lines:[1,1,1,0,0,1] },
+  { no:27, name:'山雷頤', kana:'さんらいい', lines:[1,0,0,0,0,1] },
+  { no:28, name:'澤風大過', kana:'たくふうたいか', lines:[0,1,1,1,1,0] },
+  { no:29, name:'坎為水', kana:'かんいすい', lines:[0,1,0,0,1,0] },
+  { no:30, name:'離為火', kana:'りいか', lines:[1,0,1,1,0,1] },
+  { no:31, name:'澤山咸', kana:'たくざんかん', lines:[0,0,1,1,1,0] },
+  { no:32, name:'雷風恆', kana:'らいふうこう', lines:[0,1,1,0,0,1] },
+  { no:33, name:'天山遯', kana:'てんざんとん', lines:[0,0,1,1,1,1] },
+  { no:34, name:'雷天大壯', kana:'らいてんたいそう', lines:[1,1,1,1,0,0] },
+  { no:35, name:'火地晉', kana:'かちしん', lines:[0,0,0,1,0,1] },
+  { no:36, name:'地火明夷', kana:'ちかめいい', lines:[1,0,1,0,0,0] },
+  { no:37, name:'風火家人', kana:'ふうかかじん', lines:[1,0,1,0,1,1] },
+  { no:38, name:'火澤睽', kana:'かたくけい', lines:[1,1,0,1,0,1] },
+  { no:39, name:'水山蹇', kana:'すいさんけん', lines:[0,0,1,0,1,0] },
+  { no:40, name:'雷水解', kana:'らいすいかい', lines:[0,1,0,1,0,0] },
+  { no:41, name:'山澤損', kana:'さんたくそん', lines:[1,1,0,0,0,1] },
+  { no:42, name:'風雷益', kana:'ふうらいえき', lines:[1,0,0,0,1,1] },
+  { no:43, name:'澤天夬', kana:'たくてんかい', lines:[1,1,1,1,1,0] },
+  { no:44, name:'天風姤', kana:'てんぷうこう', lines:[0,1,1,1,1,1] },
+  { no:45, name:'澤地萃', kana:'たくちすい', lines:[0,0,0,1,1,0] },
+  { no:46, name:'地風升', kana:'ちふうしょう', lines:[0,1,1,0,0,0] },
+  { no:47, name:'澤水困', kana:'たくすいこん', lines:[0,1,0,1,1,0] },
+  { no:48, name:'水風井', kana:'すいふうせい', lines:[0,1,1,0,1,0] },
+  { no:49, name:'澤火革', kana:'たくかかく', lines:[1,0,1,1,1,0] },
+  { no:50, name:'火風鼎', kana:'かふうてい', lines:[0,1,1,1,0,1] },
+  { no:51, name:'震為雷', kana:'しんいらい', lines:[1,0,0,1,0,0] },
+  { no:52, name:'艮為山', kana:'ごんいさん', lines:[0,0,1,0,0,1] },
+  { no:53, name:'風山漸', kana:'ふうさんぜん', lines:[0,0,1,0,1,1] },
+  { no:54, name:'雷澤歸妹', kana:'らいたくきまい', lines:[1,1,0,1,0,0] },
+  { no:55, name:'雷火豐', kana:'らいかほう', lines:[1,0,1,1,0,0] },
+  { no:56, name:'火山旅', kana:'かさんりょ', lines:[0,0,1,1,0,1] },
+  { no:57, name:'巽為風', kana:'そんいふう', lines:[0,1,1,0,1,1] },
+  { no:58, name:'兌為澤', kana:'だいたく', lines:[1,1,0,1,1,0] },
+  { no:59, name:'風水渙', kana:'ふうすいかん', lines:[0,1,0,0,1,1] },
+  { no:60, name:'水澤節', kana:'すいたくせつ', lines:[1,1,0,0,1,0] },
+  { no:61, name:'風澤中孚', kana:'ふうたくちゅうふ', lines:[1,1,0,0,1,1] },
+  { no:62, name:'雷山小過', kana:'らいさんしょうか', lines:[0,0,1,1,0,0] },
+  { no:63, name:'水火既濟', kana:'すいかきせい', lines:[1,0,1,0,1,0] },
+  { no:64, name:'火水未濟', kana:'かすいびせい', lines:[0,1,0,1,0,1] },
 ];
 
 let selectedHex = null;
 let uploadedImage = null;
 
-// ============================================================
-// 爻をCanvasに描画（下から上の順 lines[0]=初爻〜lines[5]=上爻）
-// 画面上は上から描く（lines[5]→lines[0]）
-// ============================================================
 function drawHexagram(ctx, lines, x, y, width, color) {
-  // 本来の卦の比率：爻は細い横棒、高さは幅の約1/6、間隔は爻の高さと同程度
-  // 爻：横長の細い棒。高さは幅の約1/12、間隔は高さの1.2倍
-  const lineH  = width * 0.085;  // 爻の高さ（細く横長に）
-  const gap    = width * 0.105;  // 爻と爻の間隔
-  const breakW = width * 0.20;   // 陰爻の中央切れ目（幅の1/5）
+  const lineH = width * 0.085; 
+  const gap = width * 0.105; 
+  const breakW = width * 0.20; 
 
   ctx.fillStyle = color;
 
   for (let i = 5; i >= 0; i--) {
     const row = 5 - i;
-    const ey  = y + row * (lineH + gap);
+    const ey = y + row * (lineH + gap);
 
     if (lines[i] === 1) {
-      // 陽爻：一本の棒（角なし）
       ctx.fillRect(x, ey, width, lineH);
     } else {
-      // 陰爻：左右2本（角なし）
       const segW = (width - breakW) / 2;
       ctx.fillRect(x, ey, segW, lineH);
       ctx.fillRect(x + segW + breakW, ey, segW, lineH);
@@ -301,10 +293,9 @@ function rRect(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
-// ミニ描画（リスト用）
 function drawMini(canvas, lines) {
   const dpr = window.devicePixelRatio || 1;
-  canvas.width  = 48 * dpr; canvas.height = 64 * dpr;
+  canvas.width = 48 * dpr; canvas.height = 64 * dpr;
   canvas.style.width = '48px'; canvas.style.height = '64px';
   const ctx = canvas.getContext('2d');
   ctx.scale(dpr, dpr);
@@ -312,7 +303,6 @@ function drawMini(canvas, lines) {
   drawHexagram(ctx, lines, 0, 0, 48, 'rgba(201,169,110,0.9)');
 }
 
-// リスト描画
 function renderList(filtered) {
   const list = document.getElementById('hexagramList');
   list.innerHTML = filtered.map(h => `
@@ -325,6 +315,7 @@ function renderList(filtered) {
       <span class="hex-number">第${h.no}卦</span>
     </div>
   `).join('');
+  
   filtered.forEach(h => {
     const c = document.getElementById(`mini-${h.no}`);
     if (c) drawMini(c, h.lines);
@@ -392,46 +383,46 @@ function renderCard() {
   }
 
   const canvas = document.getElementById('cardCanvas');
-  const ctx    = canvas.getContext('2d');
-  const cont   = document.getElementById('canvasContainer');
+  const ctx = canvas.getContext('2d');
+  const cont = document.getElementById('canvasContainer');
 
-  const maxW  = Math.min(cont.clientWidth - 2, 420);
+  // ✨ プレビューの最大幅を900pxに拡大（画質向上）
+  const maxW = Math.min(cont.clientWidth - 2, 900);
   const ratio = uploadedImage.height / uploadedImage.width;
-  canvas.width  = maxW;
+  canvas.width = maxW;
   canvas.height = maxW * ratio;
 
   ctx.drawImage(uploadedImage, 0, 0, canvas.width, canvas.height);
 
-  const sizeKey  = document.getElementById('sizeSelect').value;
+  const sizeKey = document.getElementById('sizeSelect').value;
   const colorKey = document.getElementById('colorSelect').value;
   const textMode = document.getElementById('textSelect').value;
-  const pos      = document.getElementById('positionSelect').value;
+  const pos = document.getElementById('positionSelect').value;
 
-  const hexW   = sizeKey==='large' ? canvas.width*0.22 : sizeKey==='small' ? canvas.width*0.12 : canvas.width*0.17;
-  const lineH  = hexW * 0.085;
-  const gap    = hexW * 0.105;
-  const hexH   = lineH * 6 + gap * 5;
-
+  const hexW = sizeKey==='large' ? canvas.width*0.22 : sizeKey==='small' ? canvas.width*0.12 : canvas.width*0.17;
+  const lineH = hexW * 0.085;
+  const gap = hexW * 0.105;
+  const hexH = lineH * 6 + gap * 5;
   const nameSize = hexW * 0.30;
   const kanaSize = hexW * 0.21;
   let textH = 0;
+  
   if (textMode==='full') textH = nameSize*1.5 + kanaSize*1.5 + 10;
   if (textMode==='name') textH = nameSize*1.5 + 10;
-
+  
   const totalH = hexH + textH + 14;
   const cx = canvas.width * 0.5;
-
   let topY;
-  if (pos==='top')    topY = canvas.height*0.05;
-  else if (pos==='bottom') topY = canvas.height - totalH - canvas.height*0.05;
+
+  // ✨ 'top'（上部）の開始位置を*0.18に調整（位置下げ）
+  if (pos==='top') topY = canvas.height*0.18;
+  else if (pos==='bottom') topY = canvas.height - totalH - canvas.height*0.12;
   else topY = (canvas.height - totalH) * 0.5;
 
   const hexX = cx - hexW*0.5;
-
   const mainColor = colorKey==='gold' ? '#e8d5a3' : colorKey==='dark' ? '#1a1228' : '#ffffff';
-  const shadowC   = colorKey==='dark' ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.8)';
+  const shadowC = colorKey==='dark' ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.8)';
 
-  // 背景グロー
   if (colorKey !== 'dark') {
     const gcy = topY + totalH * 0.5;
     const grad = ctx.createRadialGradient(cx, gcy, 0, cx, gcy, totalH*0.7);
@@ -443,40 +434,48 @@ function renderCard() {
     ctx.fill();
   }
 
-  // 爻を描画
   ctx.save();
   ctx.shadowColor = shadowC;
-  ctx.shadowBlur  = 5;
-  ctx.fillStyle   = mainColor;
+  ctx.shadowBlur = 5;
+  ctx.fillStyle = mainColor;
   drawHexagram(ctx, selectedHex.lines, hexX, topY, hexW, mainColor);
   ctx.restore();
 
-  // 区切りライン
   const lineY = topY + hexH + 7;
   if (textMode !== 'none') {
     ctx.save();
     const lg = ctx.createLinearGradient(cx-hexW, lineY, cx+hexW, lineY);
-    lg.addColorStop(0,'transparent'); lg.addColorStop(0.5, mainColor); lg.addColorStop(1,'transparent');
+    lg.addColorStop(0,'transparent');
+    lg.addColorStop(0.5, mainColor);
+    lg.addColorStop(1,'transparent');
     ctx.globalAlpha = 0.5;
     ctx.strokeStyle = lg;
     ctx.lineWidth = 0.7;
-    ctx.beginPath(); ctx.moveTo(cx-hexW, lineY); ctx.lineTo(cx+hexW, lineY); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx-hexW, lineY);
+    ctx.lineTo(cx+hexW, lineY);
+    ctx.stroke();
     ctx.restore();
   }
 
-  // テキスト
   function dText(text, size, y, alpha) {
     ctx.save();
     ctx.font = `${size}px "Noto Serif JP", serif`;
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.shadowColor = shadowC; ctx.shadowBlur = 8;
-    ctx.globalAlpha = alpha||1; ctx.fillStyle = mainColor;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.shadowColor = shadowC;
+    ctx.shadowBlur = 8;
+    ctx.globalAlpha = alpha||1;
+    ctx.fillStyle = mainColor;
     ctx.fillText(text, cx, y);
     ctx.restore();
   }
 
   let ty = lineY + nameSize * 0.9;
-  if (textMode==='full'||textMode==='name') { dText(`第${selectedHex.no}卦　${selectedHex.name}`, nameSize, ty); ty += nameSize*1.4; }
+  if (textMode==='full'||textMode==='name') {
+    dText(`第${selectedHex.no}卦　${selectedHex.name}`, nameSize, ty);
+    ty += nameSize*1.4;
+  }
   if (textMode==='full') dText(`（${selectedHex.kana}）`, kanaSize, ty, 0.75);
 
   document.getElementById('canvasPlaceholder').style.display = 'none';
@@ -485,10 +484,112 @@ function renderCard() {
 }
 
 function downloadCard() {
-  const canvas = document.getElementById('cardCanvas');
+  const hiCanvas = document.createElement('canvas');
+  const img = uploadedImage;
+  hiCanvas.width = img.naturalWidth;
+  hiCanvas.height = img.naturalHeight;
+  const ctx = hiCanvas.getContext('2d');
+  ctx.drawImage(img, 0, 0, hiCanvas.width, hiCanvas.height);
+
+  const sizeKey = document.getElementById('sizeSelect').value;
+  const colorKey = document.getElementById('colorSelect').value;
+  const textMode = document.getElementById('textSelect').value;
+  const pos = document.getElementById('positionSelect').value;
+
+  const hexW = sizeKey==='large' ? hiCanvas.width*0.22 : sizeKey==='small' ? hiCanvas.width*0.12 : hiCanvas.width*0.17;
+  const lineH = hexW * 0.085;
+  const gapY = hexW * 0.105;
+  const breakW = hexW * 0.20;
+  const hexH = lineH*6 + gapY*5;
+  const nameSize = hexW * 0.30;
+  const kanaSize = hexW * 0.21;
+  let textH = 0;
+  
+  if (textMode==='full') textH = nameSize*1.5 + kanaSize*1.5 + 10;
+  if (textMode==='name') textH = nameSize*1.5 + 10;
+  
+  const totalH = hexH + textH + 14;
+  const cx = hiCanvas.width * 0.5;
+  let topY;
+
+  // ✨ ダウンロードCanvasでも'top'（上部）の開始位置を*0.18に調整
+  if (pos==='top') topY = hiCanvas.height*0.18;
+  else if (pos==='bottom') topY = hiCanvas.height - totalH - hiCanvas.height*0.12;
+  else topY = (hiCanvas.height - totalH) * 0.5;
+
+  const hexX = cx - hexW*0.5;
+  const mainColor = colorKey==='gold' ? '#e8d5a3' : colorKey==='dark' ? '#1a1228' : '#ffffff';
+  const shadowC = colorKey==='dark' ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.8)';
+
+  if (colorKey !== 'dark') {
+    const gcy = topY + totalH*0.5;
+    const grad = ctx.createRadialGradient(cx, gcy, 0, cx, gcy, totalH*0.7);
+    grad.addColorStop(0, 'rgba(0,0,0,0.55)');
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.ellipse(cx, gcy, hexW*1.5, totalH*0.65, 0, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  ctx.save();
+  ctx.shadowColor = shadowC;
+  ctx.shadowBlur = 5;
+  ctx.fillStyle = mainColor;
+  for (let i=5; i>=0; i--) {
+    const row = 5-i;
+    const ey = topY + row*(lineH+gapY);
+    if (selectedHex.lines[i]===1) {
+      ctx.fillRect(hexX, ey, hexW, lineH);
+    } else {
+      const segW = (hexW-breakW)/2;
+      ctx.fillRect(hexX, ey, segW, lineH);
+      ctx.fillRect(hexX+segW+breakW, ey, segW, lineH);
+    }
+  }
+  ctx.restore();
+
+  const lineY = topY + hexH + 7;
+  if (textMode !== 'none') {
+    const lg = ctx.createLinearGradient(cx-hexW, lineY, cx+hexW, lineY);
+    lg.addColorStop(0,'transparent');
+    lg.addColorStop(0.5,mainColor);
+    lg.addColorStop(1,'transparent');
+    ctx.save();
+    ctx.globalAlpha=0.5;
+    ctx.strokeStyle=lg;
+    ctx.lineWidth=1;
+    ctx.beginPath();
+    ctx.moveTo(cx-hexW,lineY);
+    ctx.lineTo(cx+hexW,lineY);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // ✨ ダウンロード画像にも美しいフォント（Noto Serif JP）を指定
+  const dText = (text, sz, y, alpha=1) => {
+    ctx.save();
+    ctx.font=`${sz}px "Noto Serif JP", serif`;
+    ctx.textAlign='center';
+    ctx.textBaseline='middle';
+    ctx.shadowColor=shadowC;
+    ctx.shadowBlur=12;
+    ctx.globalAlpha=alpha;
+    ctx.fillStyle=mainColor;
+    ctx.fillText(text, cx, y);
+    ctx.restore();
+  };
+
+  let ty = lineY + nameSize*0.9;
+  if (textMode==='full'||textMode==='name') {
+    dText(`第${selectedHex.no}卦　${selectedHex.name}`, nameSize, ty);
+    ty+=nameSize*1.4;
+  }
+  if (textMode==='full') dText(`（${selectedHex.kana}）`, kanaSize, ty, 0.75);
+
   const a = document.createElement('a');
   a.download = `omamori_${selectedHex.no}_${selectedHex.name}.png`;
-  a.href = canvas.toDataURL('image/png');
+  a.href = hiCanvas.toDataURL('image/png');
   a.click();
 }
 </script>
