@@ -81,15 +81,19 @@
 
   .upload-area { border: 1.5px dashed rgba(201,169,110,0.35); border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.2s; background: rgba(255,255,255,0.02); }
   .upload-area:hover { border-color: var(--gold); background: rgba(201,169,110,0.04); }
-  .upload-area input { display: none; }
+  .upload-area input[type="file"] { display: none; }
   .upload-icon { font-size: 1.8rem; margin-bottom: 6px; }
   .upload-text { font-size: 0.75rem; color: rgba(250,246,238,0.5); }
 
   .overlay-settings { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
   .setting-row { display: flex; align-items: center; gap: 10px; font-size: 0.75rem; color: rgba(250,246,238,0.65); }
   .setting-label { min-width: 80px; letter-spacing: 0.05em; }
+  
   select { flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(201,169,110,0.3); border-radius: 6px; color: var(--cream); font-size: 0.75rem; padding: 5px 8px; outline: none; font-family: 'Noto Sans JP', sans-serif; }
   select:focus { border-color: var(--gold); }
+  
+  /* スライダーのスタイル */
+  input[type="range"] { flex: 1; accent-color: var(--gold); cursor: pointer; }
 
   .card-preview-area { margin-top: 20px; }
   .canvas-container { position: relative; width: 100%; border-radius: 12px; border: 1px solid rgba(201,169,110,0.2); background: rgba(0,0,0,0.3); min-height: 200px; display: flex; align-items: center; justify-content: center; }
@@ -127,23 +131,24 @@
     <div class="panel">
       <div class="panel-title">✦ イラストをアップロード</div>
       <div class="upload-area" id="uploadArea" onclick="document.getElementById('imageUpload').click()">
-        <input type="file" id="imageUpload" accept="image/*" style="display:none;">
+        <input type="file" id="imageUpload" accept="image/*">
         <div class="upload-icon">🔮</div>
         <div class="upload-text" id="uploadText">カードイラストを選択<br><span style="font-size:0.65rem;opacity:0.6">JPG / PNG / WEBP</span></div>
       </div>
 
       <div class="overlay-settings">
         <div class="setting-row">
-          <span class="setting-label">卦の位置</span>
-          <select id="positionSelect">
-            <option value="top" selected>上部</option>
-            <option value="center">中央</option>
-            <option value="bottom">下部</option>
-          </select>
+          <span class="setting-label">上下の位置</span>
+          <input type="range" id="posY" min="0" max="30" step="0.1" value="11" oninput="renderCard()">
         </div>
         <div class="setting-row">
+          <span class="setting-label">左右の位置</span>
+          <input type="range" id="posX" min="-10" max="10" step="0.1" value="0" oninput="renderCard()">
+        </div>
+
+        <div class="setting-row">
           <span class="setting-label">卦のサイズ</span>
-          <select id="sizeSelect">
+          <select id="sizeSelect" onchange="renderCard()">
             <option value="large">大</option>
             <option value="medium" selected>中</option>
             <option value="small">小</option>
@@ -151,7 +156,7 @@
         </div>
         <div class="setting-row">
           <span class="setting-label">爻の色</span>
-          <select id="colorSelect">
+          <select id="colorSelect" onchange="renderCard()">
             <option value="gold" selected>ゴールド</option>
             <option value="white">ホワイト</option>
             <option value="dark">ダーク（黒）</option>
@@ -159,13 +164,12 @@
         </div>
         <div class="setting-row">
           <span class="setting-label">卦名テキスト</span>
-          <select id="textSelect">
+          <select id="textSelect" onchange="renderCard()">
             <option value="full">卦名＋読み仮名</option>
             <option value="name">卦名のみ</option>
             <option value="none" selected>表示しない</option>
           </select>
         </div>
-        <button class="btn btn-primary" onclick="renderCard()">✦ プレビューを更新</button>
       </div>
 
       <div class="card-preview-area">
@@ -257,7 +261,7 @@ let selectedHex = null;
 let uploadedImage = null;
 
 function drawHexagram(ctx, lines, x, y, width, color) {
-  const lineH = width * 0.12; // ✨ 線の太さを 0.085 -> 0.12 に変更
+  const lineH = width * 0.12; 
   const gap = width * 0.105; 
   const breakW = width * 0.20; 
 
@@ -377,10 +381,7 @@ document.getElementById('imageUpload').addEventListener('change', function(e) {
 });
 
 function renderCard() {
-  if (!uploadedImage || !selectedHex) {
-    alert(!uploadedImage ? 'イラスト画像をアップロードしてください' : '卦を選択してください');
-    return;
-  }
+  if (!uploadedImage || !selectedHex) return;
 
   const canvas = document.getElementById('cardCanvas');
   const ctx = canvas.getContext('2d');
@@ -396,10 +397,13 @@ function renderCard() {
   const sizeKey = document.getElementById('sizeSelect').value;
   const colorKey = document.getElementById('colorSelect').value;
   const textMode = document.getElementById('textSelect').value;
-  const pos = document.getElementById('positionSelect').value;
+  
+  // ✨ スライダーの数値を取得
+  const posXVal = parseFloat(document.getElementById('posX').value);
+  const posYVal = parseFloat(document.getElementById('posY').value);
 
   const hexW = sizeKey==='large' ? canvas.width*0.10 : sizeKey==='small' ? canvas.width*0.04 : canvas.width*0.06;
-  const lineH = hexW * 0.12; // ✨ 線の太さを 0.085 -> 0.12 に変更
+  const lineH = hexW * 0.12; 
   const gap = hexW * 0.105;
   const hexH = lineH * 6 + gap * 5;
   const nameSize = hexW * 0.30;
@@ -410,25 +414,25 @@ function renderCard() {
   if (textMode==='name') textH = nameSize*1.5 + 10;
   
   const totalH = hexH + textH + 14;
+  
+  // ✨ スライダーの値から座標を計算
   const cx = canvas.width * 0.5;
-  let topY;
+  const offsetX = canvas.width * (posXVal / 100);
+  const hexCx = cx + offsetX; // 卦の中心X座標
+  const hexX = hexCx - hexW * 0.5; // 卦の描画開始X座標
+  const topY = canvas.height * (posYVal / 100); // 卦のY座標
 
-  if (pos==='top') topY = canvas.height*0.11;
-  else if (pos==='bottom') topY = canvas.height - totalH - canvas.height*0.12;
-  else topY = (canvas.height - totalH) * 0.5;
-
-  const hexX = cx - hexW*0.5;
   const mainColor = colorKey==='gold' ? '#e8d5a3' : colorKey==='dark' ? '#1a1228' : '#ffffff';
   const shadowC = colorKey==='dark' ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.8)';
 
   if (colorKey !== 'dark') {
     const gcy = topY + totalH * 0.5;
-    const grad = ctx.createRadialGradient(cx, gcy, 0, cx, gcy, totalH*0.7);
+    const grad = ctx.createRadialGradient(hexCx, gcy, 0, hexCx, gcy, totalH*0.7);
     grad.addColorStop(0, 'rgba(0,0,0,0.55)');
     grad.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = grad;
     ctx.beginPath();
-    ctx.ellipse(cx, gcy, hexW*1.5, totalH*0.65, 0, 0, Math.PI*2);
+    ctx.ellipse(hexCx, gcy, hexW*1.5, totalH*0.65, 0, 0, Math.PI*2);
     ctx.fill();
   }
 
@@ -492,10 +496,13 @@ function downloadCard() {
   const sizeKey = document.getElementById('sizeSelect').value;
   const colorKey = document.getElementById('colorSelect').value;
   const textMode = document.getElementById('textSelect').value;
-  const pos = document.getElementById('positionSelect').value;
+  
+  // ✨ ダウンロード時もスライダーの数値を適用
+  const posXVal = parseFloat(document.getElementById('posX').value);
+  const posYVal = parseFloat(document.getElementById('posY').value);
 
   const hexW = sizeKey==='large' ? hiCanvas.width*0.10 : sizeKey==='small' ? hiCanvas.width*0.04 : hiCanvas.width*0.06;
-  const lineH = hexW * 0.12; // ✨ 線の太さを 0.085 -> 0.12 に変更
+  const lineH = hexW * 0.12; 
   const gapY = hexW * 0.105;
   const breakW = hexW * 0.20;
   const hexH = lineH*6 + gapY*5;
@@ -507,25 +514,24 @@ function downloadCard() {
   if (textMode==='name') textH = nameSize*1.5 + 10;
   
   const totalH = hexH + textH + 14;
+  
   const cx = hiCanvas.width * 0.5;
-  let topY;
+  const offsetX = hiCanvas.width * (posXVal / 100);
+  const hexCx = cx + offsetX;
+  const hexX = hexCx - hexW * 0.5;
+  const topY = hiCanvas.height * (posYVal / 100);
 
-  if (pos==='top') topY = hiCanvas.height*0.11;
-  else if (pos==='bottom') topY = hiCanvas.height - totalH - hiCanvas.height*0.12;
-  else topY = (hiCanvas.height - totalH) * 0.5;
-
-  const hexX = cx - hexW*0.5;
   const mainColor = colorKey==='gold' ? '#e8d5a3' : colorKey==='dark' ? '#1a1228' : '#ffffff';
   const shadowC = colorKey==='dark' ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.8)';
 
   if (colorKey !== 'dark') {
     const gcy = topY + totalH*0.5;
-    const grad = ctx.createRadialGradient(cx, gcy, 0, cx, gcy, totalH*0.7);
+    const grad = ctx.createRadialGradient(hexCx, gcy, 0, hexCx, gcy, totalH*0.7);
     grad.addColorStop(0, 'rgba(0,0,0,0.55)');
     grad.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = grad;
     ctx.beginPath();
-    ctx.ellipse(cx, gcy, hexW*1.5, totalH*0.65, 0, 0, Math.PI*2);
+    ctx.ellipse(hexCx, gcy, hexW*1.5, totalH*0.65, 0, 0, Math.PI*2);
     ctx.fill();
   }
 
