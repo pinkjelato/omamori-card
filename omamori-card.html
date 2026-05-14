@@ -3,126 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STELLA ✧ TERRA ✦ ARCHIVE [Precision]</title>
+<title>STELLA ✧ TERRA ✦ ARCHIVE</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Cinzel+Decorative:wght@400;700&family=Noto+Sans+JP:wght@300;400&display=swap');
-
-  :root {
-    --gold: #c9a96e;
-    --gold-light: #e8d5a3;
-    --deep: #1a1228;
-    --cream: #faf6ee;
-    --stamp-red: #cc3b3b;
-  }
-
+  :root { --gold: #c9a96e; --gold-light: #e8d5a3; --deep: #1a1228; --cream: #faf6ee; --stamp-red: #cc3b3b; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: radial-gradient(ellipse at 50% 0%, #2d1b4e 0%, #1a1228 60%, #0d0a1a 100%);
-    min-height: 100vh;
-    font-family: 'Noto Sans JP', sans-serif;
-    color: var(--cream);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 24px 16px 60px;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
-    background-size: 30px 30px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
+  body { background: radial-gradient(ellipse at 50% 0%, #2d1b4e 0%, #1a1228 60%, #0d0a1a 100%); min-height: 100vh; font-family: 'Noto Sans JP', sans-serif; color: var(--cream); display: flex; flex-direction: column; align-items: center; padding: 24px 16px 60px; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 30px 30px; pointer-events: none; z-index: 0; }
   .wrapper { position: relative; z-index: 1; width: 100%; max-width: 900px; }
-
   header { text-align: center; margin-bottom: 32px; }
-  .logo-ui { 
-    font-family: 'Cinzel Decorative', serif; 
-    font-size: clamp(1.8rem, 6vw, 2.6rem); 
-    color: var(--gold); 
-    letter-spacing: 0.25em; 
-    margin-bottom: 8px;
-    text-shadow: 0 0 15px rgba(201,169,110,0.3);
-  }
+  .logo-ui { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.8rem, 6vw, 2.6rem); color: var(--gold); letter-spacing: 0.25em; text-shadow: 0 0 15px rgba(201,169,110,0.3); }
   .title-divider { margin: 12px auto; width: 220px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
-  .subtitle { font-family: 'Noto Serif JP', serif; font-size: 0.75rem; color: var(--gold-light); letter-spacing: 0.4em; opacity: 0.7; }
-
+  .subtitle { font-family: 'Noto Serif JP', serif; font-size: 0.75rem; color: var(--gold-light); letter-spacing: 0.4em; opacity: 0.7; text-align: center; }
   .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   @media (max-width: 640px) { .main-layout { grid-template-columns: 1fr; } }
-
   .panel { background: rgba(255,255,255,0.05); border: 1px solid rgba(201,169,110,0.25); border-radius: 16px; padding: 20px; backdrop-filter: blur(10px); }
   .panel-title { font-family: 'Noto Serif JP', serif; font-size: 0.75rem; color: var(--gold); letter-spacing: 0.2em; margin-bottom: 16px; border-left: 3px solid var(--gold); padding-left: 10px; }
-
   input[type="text"] { width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(201,169,110,0.3); border-radius: 8px; color: var(--cream); padding: 12px; margin-bottom: 12px; outline: none; }
-
   .hexagram-list { max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
   .hexagram-item { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 8px; cursor: pointer; border: 1px solid transparent; transition: 0.2s; }
   .hexagram-item.selected { background: rgba(201,169,110,0.2); border-color: var(--gold); }
   .hex-mini-canvas { width: 44px; height: 58px; }
-
   .selected-display { text-align: center; padding: 15px; border-top: 1px solid rgba(201,169,110,0.2); margin-top: 10px; font-weight: bold; color: var(--gold-light); }
-
   .upload-area { border: 1.5px dashed rgba(201,169,110,0.35); border-radius: 12px; padding: 25px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02); margin-bottom: 20px; }
   .upload-area input[type="file"] { display: none; }
-
   .overlay-settings { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
   .setting-row { display: flex; align-items: center; gap: 15px; font-size: 0.8rem; }
   .setting-label { min-width: 90px; color: var(--gold-light); }
-  select, input[type="range"] { flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(201,169,110,0.3); border-radius: 6px; color: var(--cream); padding: 6px; }
+  select, input[type="range"] { flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(201,169,110,0.3); border-radius: 6px; color: var(--cream); padding: 6px; outline: none; }
   input[type="range"] { accent-color: var(--gold); cursor: pointer; }
-
   .canvas-container { background: rgba(0,0,0,0.3); border-radius: 12px; border: 1px solid rgba(201,169,110,0.2); overflow: hidden; display: flex; justify-content: center; align-items: center; min-height: 200px; }
-  canvas { max-width: 100%; height: auto; }
-
+  canvas { max-width: 100%; height: auto; display: block; }
   .btn-download { background: linear-gradient(135deg, var(--gold) 0%, #8a6d3b 100%); border: none; border-radius: 10px; color: #1a1228; cursor: pointer; font-family: 'Noto Serif JP', serif; font-size: 0.9rem; font-weight: 700; padding: 15px; width: 100%; margin-top: 20px; transition: 0.2s; opacity: 0.4; pointer-events: none; }
   .btn-download.ready { opacity: 1; pointer-events: all; }
-
-  /* ✧ STELLA TERRA ✧ 朱印フッター */
-  .footer-custom {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 48px;
-    gap: 15px;
-  }
-  .footer-brand-text {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1.3rem;
-    color: var(--gold-light);
-    letter-spacing: 0.1em;
-  }
-  .red-seal {
-    width: 38px;
-    height: 38px;
-    background-color: var(--stamp-red);
-    border-radius: 3px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    padding: 2px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-  }
-  .seal-char {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #ffffff;
-    font-family: 'Noto Serif JP', serif;
-    font-size: 13px;
-    font-weight: 700;
-    line-height: 1;
-  }
-  /* 文字配置: 捨樂寺印 */
-  .c1 { grid-area: 1 / 2 / 2 / 3; } /* 捨 (右上) */
-  .c2 { grid-area: 1 / 1 / 2 / 2; } /* 樂 (左上) */
-  .c3 { grid-area: 2 / 2 / 3 / 3; } /* 寺 (右下) */
-  .c4 { grid-area: 2 / 1 / 3 / 2; } /* 印 (左下) */
-
+  .footer-custom { display: flex; justify-content: center; align-items: center; margin-top: 48px; gap: 15px; }
+  .footer-brand-text { font-family: 'Cinzel Decorative', serif; font-size: 1.3rem; color: var(--gold-light); letter-spacing: 0.1em; }
+  .red-seal { width: 38px; height: 38px; background-color: var(--stamp-red); border-radius: 3px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; padding: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+  .seal-char { display: flex; justify-content: center; align-items: center; color: #ffffff; font-family: 'Noto Serif JP', serif; font-size: 13px; font-weight: 700; line-height: 1; }
+  .c1 { grid-area: 1 / 2 / 2 / 3; } .c2 { grid-area: 1 / 1 / 2 / 2; } .c3 { grid-area: 2 / 2 / 3 / 3; } .c4 { grid-area: 2 / 1 / 3 / 2; }
 </style>
 </head>
 <body>
@@ -132,15 +50,13 @@
     <div class="title-divider"></div>
     <div class="subtitle">OMAMORI CARD MAKER</div>
   </header>
-
   <div class="main-layout">
     <div class="panel">
       <div class="panel-title">✦ 卦を選択してください ✦</div>
-      <input type="text" id="searchInput" placeholder="番号、卦名、読み（例: 17, 随）">
+      <input type="text" id="searchInput" placeholder="17, 随, 沢 などで検索">
       <div class="hexagram-list" id="hexagramList"></div>
       <div class="selected-display" id="selectedDisplay">卦を選択してください</div>
     </div>
-
     <div class="panel">
       <div class="panel-title">✦ カスタマイズ ✦</div>
       <div class="upload-area" onclick="document.getElementById('imageUpload').click()">
@@ -148,180 +64,83 @@
         <div style="font-size: 2.2rem; margin-bottom: 10px;">🔮</div>
         <div id="uploadStatus" style="font-size: 0.8rem; opacity: 0.6;">カードイラストを選択</div>
       </div>
-
       <div class="overlay-settings">
-        <div class="setting-row"><span class="setting-label">上下の位置</span><input type="range" id="posY" min="0" max="95" step="0.1" value="10.5" oninput="renderCard()"></div>
-        <div class="setting-row"><span class="setting-label">左右の位置</span><input type="range" id="posX" min="-45" max="45" step="0.1" value="0" oninput="renderCard()"></div>
+        <div class="setting-row"><span class="setting-label">上下位置</span><input type="range" id="posY" min="0" max="95" step="0.1" value="10.5" oninput="renderCard()"></div>
+        <div class="setting-row"><span class="setting-label">左右位置</span><input type="range" id="posX" min="-45" max="45" step="0.1" value="0" oninput="renderCard()"></div>
         <div class="setting-row"><span class="setting-label">卦のサイズ</span><input type="range" id="sizeRange" min="0.1" max="15" step="0.1" value="4.5" oninput="renderCard()"></div>
-        
-        <div class="setting-row"><span class="setting-label">爻の色</span><select id="colorSelect" onchange="renderCard()"><option value="gold" selected>ゴールド</option><option value="white">ホワイト</option><option value="dark">ブラック</option></select></div>
-        <div class="setting-row"><span class="setting-label">卦名テキスト</span><select id="textSelect" onchange="renderCard()"><option value="none" selected>表示しない</option><option value="full">表示する</option></select></div>
+        <div class="setting-row"><span class="setting-label">線の色</span><select id="colorSelect" onchange="renderCard()"><option value="gold" selected>ゴールド</option><option value="white">ホワイト</option><option value="dark">ブラック</option></select></div>
+        <div class="setting-row"><span class="setting-label">テキスト</span><select id="textSelect" onchange="renderCard()"><option value="none" selected>なし</option><option value="full">あり</option></select></div>
       </div>
-
       <div class="card-preview-area">
         <div class="panel-title">✦ プレビュー ✦</div>
         <div class="canvas-container" id="canvasContainer">
-          <div id="canvasPlaceholder" style="font-size: 0.75rem; opacity: 0.4; text-align: center;">卦とイラストを準備してください</div>
+          <div id="canvasPlaceholder" style="font-size: 0.75rem; opacity: 0.4; text-align: center;">卦とイラストを選択すると表示されます</div>
           <canvas id="cardCanvas" style="display:none;"></canvas>
         </div>
         <button class="btn-download" id="downloadBtn" onclick="downloadCard()">✦ お守りを保存する ✦</button>
       </div>
     </div>
   </div>
-
   <div class="footer-custom">
     <span class="footer-brand-text">Stella✧Terra</span>
-    <div class="red-seal">
-      <span class="seal-char c1">捨</span>
-      <span class="seal-char c2">樂</span>
-      <span class="seal-char c3">寺</span>
-      <span class="seal-char c4">印</span>
-    </div>
+    <div class="red-seal"><span class="seal-char c1">捨</span><span class="seal-char c2">樂</span><span class="seal-char c3">寺</span><span class="seal-char c4">印</span></div>
   </div>
 </div>
-
 <script>
 const hexagrams = [
-  { no:1, name:'乾爲天', kana:'けんいてん', lines:[1,1,1,1,1,1] },
-  { no:2, name:'坤爲地', kana:'こんいち', lines:[0,0,0,0,0,0] },
-  { no:3, name:'水雷屯', kana:'すいらいちゅん', lines:[1,0,0,0,1,0] },
-  { no:4, name:'山水蒙', kana:'さんすいもう', lines:[0,1,0,0,0,1] },
-  { no:5, name:'水天需', kana:'すいてんじゅ', lines:[1,1,1,0,1,0] },
-  { no:6, name:'天水訟', kana:'てんすいしょう', lines:[0,1,0,1,1,1] },
-  { no:7, name:'地水師', kana:'ちすいし', lines:[0,1,0,0,0,0] },
-  { no:8, name:'水地比', kana:'すいちひ', lines:[0,0,0,0,1,0] },
-  { no:9, name:'風天小畜', kana:'ふうてんしょうちく', lines:[1,1,1,0,1,1] },
-  { no:10, name:'天澤履', kana:'てんたくり', lines:[0,1,1,1,1,1] },
-  { no:11, name:'地天泰', kana:'ちてんたい', lines:[1,1,1,0,0,0] },
-  { no:12, name:'天地否', kana:'てんちひ', lines:[0,0,0,1,1,1] },
-  { no:13, name:'天火同人', kana:'てんかどうじん', lines:[1,0,1,1,1,1] },
-  { no:14, name:'火天大有', kana:'かてんたいゆう', lines:[1,1,1,1,0,1] },
-  { no:15, name:'地山謙', kana:'ちざんけん', lines:[0,0,1,0,0,0] },
-  { no:16, name:'雷地豫', kana:'らいちよ', lines:[0,0,0,1,0,0] },
-  { no:17, name:'澤雷隨', kana:'たくらいすい', lines:[1,0,0,1,1,0] },
-  { no:18, name:'山風蠱', kana:'さんぷうこ', lines:[1,1,0,0,0,1] },
-  { no:19, name:'地澤臨', kana:'ちたくりん', lines:[1,1,0,0,0,0] },
-  { no:20, name:'風地觀', kana:'ふうちかん', lines:[0,0,0,0,1,1] },
-  { no:21, name:'火雷噬嗑', kana:'からいぜいごう', lines:[1,0,0,1,0,1] },
-  { no:22, name:'山火賁', kana:'さんかひ', lines:[1,0,1,0,0,1] },
-  { no:23, name:'山地剝', kana:'さんちはく', lines:[0,0,0,0,0,1] },
-  { no:24, name:'地雷復', kana:'ちらいふく', lines:[1,0,0,0,0,0] },
-  { no:25, name:'天雷無妄', kana:'てんらいむぼう', lines:[1,0,0,1,1,1] },
-  { no:26, name:'山天大畜', kana:'さんてんたいちく', lines:[1,1,1,0,0,1] },
-  { no:27, name:'山雷頤', kana:'さんらいい', lines:[1,0,0,0,0,1] },
-  { no:28, name:'澤風大過', kana:'たくふうたいか', lines:[0,1,1,1,1,0] },
-  { no:29, name:'坎爲水', kana:'かんいすい', lines:[0,1,0,0,1,0] },
-  { no:30, name:'離爲火', kana:'りいか', lines:[1,0,1,1,0,1] },
-  { no:31, name:'澤山咸', kana:'たくざんかん', lines:[0,0,1,1,1,0] },
-  { no:32, name:'雷風恆', kana:'らいふうこう', lines:[0,1,1,0,0,1] },
-  { no:33, name:'天山遯', kana:'てんざんとん', lines:[0,0,1,1,1,1] },
-  { no:34, name:'雷天大壯', kana:'らいてんたいそう', lines:[1,1,1,1,0,0] },
-  { no:35, name:'火地晉', kana:'かちしん', lines:[0,0,0,1,0,1] },
-  { no:36, name:'地火明夷', kana:'ちかめいい', lines:[1,0,1,0,0,0] },
-  { no:37, name:'風火家人', kana:'ふうかかじん', lines:[1,0,1,0,1,1] },
-  { no:38, name:'火澤睽', kana:'かたくけい', lines:[1,1,0,1,0,1] },
-  { no:39, name:'水山蹇', kana:'すいさんけん', lines:[0,0,1,0,1,0] },
-  { no:40, name:'雷水解', kana:'らいすいかい', lines:[0,1,0,1,0,0] },
-  { no:41, name:'山澤損', kana:'さんたくそん', lines:[1,1,0,0,0,1] },
-  { no:42, name:'風雷益', kana:'ふうらいえき', lines:[1,0,0,0,1,1] },
-  { no:43, name:'澤天夬', kana:'たくてんかい', lines:[1,1,1,1,1,0] },
-  { no:44, name:'天風姤', kana:'てんぷうこう', lines:[0,1,1,1,1,1] },
-  { no:45, name:'澤地萃', kana:'たくちすい', lines:[0,0,0,1,1,0] },
-  { no:46, name:'地風升', kana:'ちふうしょう', lines:[0,1,1,0,0,0] },
-  { no:47, name:'澤水困', kana:'たくすいこん', lines:[0,1,0,1,1,0] },
-  { no:48, name:'水風井', kana:'すいふうせい', lines:[0,1,1,0,1,0] },
-  { no:49, name:'澤火革', kana:'たくかかく', lines:[1,0,1,1,1,0] },
-  { no:50, name:'火風鼎', kana:'かふうてい', lines:[0,1,1,1,0,1] },
-  { no:51, name:'震爲雷', kana:'しんいらい', lines:[1,0,0,1,0,0] },
-  { no:52, name:'艮爲山', kana:'ごんいさん', lines:[0,0,1,0,0,1] },
-  { no:53, name:'風山漸', kana:'ふうさんぜん', lines:[0,0,1,0,1,1] },
-  { no:54, name:'雷澤歸妹', kana:'らいたくきまい', lines:[1,1,0,1,0,0] },
-  { no:55, name:'雷火豐', kana:'らいかほう', lines:[1,0,1,1,0,0] },
-  { no:56, name:'火山旅', kana:'かさんりょ', lines:[0,0,1,1,0,1] },
-  { no:57, name:'巽爲風', kana:'そんいふう', lines:[0,1,1,0,1,1] },
-  { no:58, name:'兌爲澤', kana:'だいたく', lines:[1,1,0,1,1,0] },
-  { no:59, name:'風水渙', kana:'ふうすいかん', lines:[0,1,0,0,1,1] },
-  { no:60, name:'水澤節', kana:'すいたくせつ', lines:[1,1,0,0,1,0] },
-  { no:61, name:'風澤中孚', kana:'ふうたくちゅうふ', lines:[1,1,0,0,1,1] },
-  { no:62, name:'雷山小過', kana:'らいさんしょうか', lines:[0,0,1,1,0,0] },
-  { no:63, name:'水火既濟', kana:'すいかきせい', lines:[1,0,1,0,1,0] },
-  { no:64, name:'火水未濟', kana:'かすいびせい', lines:[0,1,0,1,0,1] },
+  { no:1, name:'乾爲天', lines:[1,1,1,1,1,1] }, { no:2, name:'坤爲地', lines:[0,0,0,0,0,0] }, { no:3, name:'水雷屯', lines:[1,0,0,0,1,0] }, { no:4, name:'山水蒙', lines:[0,1,0,0,0,1] }, { no:5, name:'水天需', lines:[1,1,1,0,1,0] }, { no:6, name:'天水訟', lines:[0,1,0,1,1,1] }, { no:7, name:'地水師', lines:[0,1,0,0,0,0] }, { no:8, name:'水地比', lines:[0,0,0,0,1,0] }, { no:9, name:'風天小畜', lines:[1,1,1,0,1,1] }, { no:10, name:'天澤履', lines:[0,1,1,1,1,1] }, { no:11, name:'地天泰', lines:[1,1,1,0,0,0] }, { no:12, name:'天地否', lines:[0,0,0,1,1,1] }, { no:13, name:'天火同人', lines:[1,0,1,1,1,1] }, { no:14, name:'火天大有', lines:[1,1,1,1,0,1] }, { no:15, name:'地山謙', lines:[0,0,1,0,0,0] }, { no:16, name:'雷地豫', lines:[0,0,0,1,0,0] }, { no:17, name:'澤雷隨', lines:[1,0,0,1,1,0] }, { no:18, name:'山風蠱', lines:[1,1,0,0,0,1] }, { no:19, name:'地澤臨', lines:[1,1,0,0,0,0] }, { no:20, name:'風地觀', lines:[0,0,0,0,1,1] }, { no:21, name:'火雷噬嗑', lines:[1,0,0,1,0,1] }, { no:22, name:'山火賁', lines:[1,0,1,0,0,1] }, { no:23, name:'山地剝', lines:[0,0,0,0,0,1] }, { no:24, name:'地雷復', lines:[1,0,0,0,0,0] }, { no:25, name:'天雷無妄', lines:[1,0,0,1,1,1] }, { no:26, name:'山天大畜', lines:[1,1,1,0,0,1] }, { no:27, name:'山雷頤', lines:[1,0,0,0,0,1] }, { no:28, name:'澤風大過', lines:[0,1,1,1,1,0] }, { no:29, name:'坎爲水', lines:[0,1,0,0,1,0] }, { no:30, name:'離爲火', lines:[1,0,1,1,0,1] }, { no:31, name:'澤山咸', lines:[0,0,1,1,1,0] }, { no:32, name:'雷風恆', lines:[0,1,1,0,0,1] }, { no:33, name:'天山遯', lines:[0,0,1,1,1,1] }, { no:34, name:'雷天大壯', lines:[1,1,1,1,0,0] }, { no:35, name:'火地晉', lines:[0,0,0,1,0,1] }, { no:36, name:'地火明夷', lines:[1,0,1,0,0,0] }, { no:37, name:'風火家人', lines:[1,0,1,0,1,1] }, { no:38, name:'火澤睽', lines:[1,1,0,1,0,1] }, { no:39, name:'水山蹇', lines:[0,0,1,0,1,0] }, { no:40, name:'雷水解', lines:[0,1,0,1,0,0] }, { no:41, name:'山澤損', lines:[1,1,0,0,0,1] }, { no:42, name:'風雷益', lines:[1,0,0,0,1,1] }, { no:43, name:'澤天夬', lines:[1,1,1,1,1,0] }, { no:44, name:'天風姤', lines:[0,1,1,1,1,1] }, { no:45, name:'澤地萃', lines:[0,0,0,1,1,0] }, { no:46, name:'地風升', lines:[0,1,1,0,0,0] }, { no:47, name:'澤水困', lines:[0,1,0,1,1,0] }, { no:48, name:'水風井', lines:[0,1,1,0,1,0] }, { no:49, name:'澤火革', lines:[1,0,1,1,1,0] }, { no:50, name:'火風鼎', lines:[0,1,1,1,0,1] }, { no:51, name:'震爲雷', lines:[1,0,0,1,0,0] }, { no:52, name:'艮爲山', lines:[0,0,1,0,0,1] }, { no:53, name:'風山漸', lines:[0,0,1,0,1,1] }, { no:54, name:'雷澤歸妹', lines:[1,1,0,1,0,0] }, { no:55, name:'雷火豐', lines:[1,0,1,1,0,0] }, { no:56, name:'火山旅', lines:[0,0,1,1,0,1] }, { no:57, name:'巽爲風', lines:[0,1,1,0,1,1] }, { no:58, name:'兌爲澤', lines:[1,1,0,1,1,0] }, { no:59, name:'風水渙', lines:[0,1,0,0,1,1] }, { no:60, name:'水澤節', lines:[1,1,0,0,1,0] }, { no:61, name:'風澤中孚', lines:[1,1,0,0,1,1] }, { no:62, name:'雷山小過', lines:[0,0,1,1,0,0] }, { no:63, name:'水火既濟', lines:[1,0,1,0,1,0] }, { no:64, name:'火水未濟', lines:[0,1,0,1,0,1] },
 ];
-
 let selectedHex = null; let uploadedImage = null;
-
-function drawHexagram(ctx, lines, x, y, width, color) {
-  const lineH = width * 0.12; const gap = width * 0.105; const breakW = width * 0.20; 
-  ctx.fillStyle = color;
-  for (let i = 5; i >= 0; i--) {
-    const row = 5 - i; const ey = y + row * (lineH + gap);
-    if (lines[i] === 1) { ctx.fillRect(x, ey, width, lineH); } 
-    else { const segW = (width - breakW) / 2; ctx.fillRect(x, ey, segW, lineH); ctx.fillRect(x + segW + breakW, ey, segW, lineH); }
-  }
+function drawHex(ctx, lines, x, y, width, color) {
+  const lh = width * 0.12, g = width * 0.105, bw = width * 0.20; ctx.fillStyle = color;
+  for (let i = 5; i >= 0; i--) { const ey = y + (5-i)*(lh+g); if (lines[i]===1) ctx.fillRect(x, ey, width, lh); else { const sw = (width-bw)/2; ctx.fillRect(x, ey, sw, lh); ctx.fillRect(x+sw+bw, ey, sw, lh); } }
 }
-
-function renderList(filtered) {
-  const list = document.getElementById('hexagramList');
-  list.innerHTML = filtered.map(h => `<div class="hexagram-item ${selectedHex && selectedHex.no === h.no ? 'selected' : ''}" onclick="selectHex(${h.no})"><canvas class="hex-mini-canvas" id="mini-${h.no}"></canvas><div class="hex-info"><div class="hex-name">${h.name}</div></div><span style="font-size:0.6rem; color:var(--gold);">#${h.no}</span></div>`).join('');
-  filtered.forEach(h => { const c = document.getElementById(`mini-${h.no}`); if (c) { c.width = 44; c.height = 58; drawHexagram(c.getContext('2d'), h.lines, 0, 0, 44, '#c9a96e'); } });
+function renderList(f) {
+  const l = document.getElementById('hexagramList'); l.innerHTML = f.map(h => `<div class="hexagram-item ${selectedHex&&selectedHex.no===h.no?'selected':''}" onclick="selectHex(${h.no})"><canvas class="hex-mini-canvas" id="mini-${h.no}"></canvas><div class="hex-info"><div class="hex-name">${h.name}</div></div><span style="font-size:0.6rem; color:var(--gold);">#${h.no}</span></div>`).join('');
+  f.forEach(h => { const c = document.getElementById(`mini-${h.no}`); if (c) { c.width = 44; c.height = 58; drawHex(c.getContext('2d'), h.lines, 0, 0, 44, '#c9a96e'); } });
 }
 renderList(hexagrams);
-
 document.getElementById('searchInput').addEventListener('input', function() {
-  let q = this.value.trim().replace(/随|髄/g,'隨').replace(/沢/g,'澤').replace(/帰/g,'歸').replace(/済/g,'濟').replace(/豊/g,'豐').replace(/為/g,'爲');
-  renderList(hexagrams.filter(h => h.name.includes(q) || h.kana.includes(q) || String(h.no)===q));
+  let q = this.value.trim().replace(/随|髄/g,'隨').replace(/沢/g,'澤').replace(/帰/g,'歸').replace(/済/g,'濟').replace(/豊/g,'豐').replace(/為/g,'爲').replace(/観/g,'觀').replace(/剥/g,'剝');
+  renderList(hexagrams.filter(h => h.name.includes(q) || String(h.no)===q));
 });
-
 function clearSearch() { document.getElementById('searchInput').value = ''; renderList(hexagrams); }
 function selectHex(no) { selectedHex = hexagrams.find(h => h.no === no); document.getElementById('selectedDisplay').innerHTML = `第${selectedHex.no}卦 『${selectedHex.name}』`; if (uploadedImage) renderCard(); }
-
 document.getElementById('imageUpload').addEventListener('change', function(e) {
   const file = e.target.files[0]; if (!file) return;
-  document.getElementById('uploadStatus').innerHTML = `${file.name}`;
+  document.getElementById('uploadStatus').textContent = file.name;
   const reader = new FileReader(); reader.onload = ev => { const img = new Image(); img.onload = () => { uploadedImage = img; renderCard(); }; img.src = ev.target.result; };
   reader.readAsDataURL(file);
 });
-
 function renderCard() {
   if (!uploadedImage || !selectedHex) return;
-  const canvas = document.getElementById('cardCanvas'); const ctx = canvas.getContext('2d'); const cont = document.getElementById('canvasContainer');
-  const maxW = Math.min(cont.clientWidth, 900); canvas.width = maxW; canvas.height = maxW * (uploadedImage.height / uploadedImage.width);
+  const canvas = document.getElementById('cardCanvas'), ctx = canvas.getContext('2d'), cont = document.getElementById('canvasContainer');
+  const maxW = cont.clientWidth || 300; canvas.width = maxW; canvas.height = maxW * (uploadedImage.height / uploadedImage.width);
   ctx.drawImage(uploadedImage, 0, 0, canvas.width, canvas.height);
-  
-  const sizeVal = parseFloat(document.getElementById('sizeRange').value);
-  const hexW = canvas.width * (sizeVal / 100);
-  const hexX = (canvas.width - hexW) / 2 + (canvas.width * (parseFloat(document.getElementById('posX').value)/100));
-  const hexY = canvas.height * (parseFloat(document.getElementById('posY').value)/100);
-  const colorKey = document.getElementById('colorSelect').value;
-  const textMode = document.getElementById('textSelect').value;
-  const mainColor = colorKey==='gold' ? '#e8d5a3' : colorKey==='white' ? '#ffffff' : '#1a1228';
-
-  drawHexagram(ctx, selectedHex.lines, hexX, hexY, hexW, mainColor);
-  if (textMode === 'full') {
-    ctx.font = `bold ${hexW*0.3}px "Noto Serif JP"`;
-    ctx.fillStyle = mainColor; ctx.textAlign = 'center';
-    ctx.fillText(`第${selectedHex.no}卦 ${selectedHex.name}`, canvas.width/2 + (canvas.width * (parseFloat(document.getElementById('posX').value)/100)), hexY + hexW + (hexW*0.4));
+  const sz = parseFloat(document.getElementById('sizeRange').value), hw = canvas.width * (sz / 100);
+  const hx = (canvas.width - hw) / 2 + (canvas.width * (parseFloat(document.getElementById('posX').value)/100));
+  const hy = canvas.height * (parseFloat(document.getElementById('posY').value)/100);
+  const color = document.getElementById('colorSelect').value === 'gold' ? '#e8d5a3' : document.getElementById('colorSelect').value === 'white' ? '#ffffff' : '#1a1228';
+  drawHex(ctx, selectedHex.lines, hx, hy, hw, color);
+  if (document.getElementById('textSelect').value === 'full') {
+    ctx.font = `bold ${hw*0.3}px "Noto Serif JP"`; ctx.fillStyle = color; ctx.textAlign = 'center';
+    ctx.fillText(`第${selectedHex.no}卦 ${selectedHex.name}`, canvas.width/2 + (canvas.width*(parseFloat(document.getElementById('posX').value)/100)), hy + hw + (hw*0.4));
   }
   canvas.style.display = 'block'; document.getElementById('canvasPlaceholder').style.display = 'none'; document.getElementById('downloadBtn').classList.add('ready');
 }
-
 function downloadCard() {
-  const hiCanvas = document.createElement('canvas'); hiCanvas.width = uploadedImage.naturalWidth; hiCanvas.height = uploadedImage.naturalHeight; const ctx = hiCanvas.getContext('2d');
-  ctx.drawImage(uploadedImage, 0, 0, hiCanvas.width, hiCanvas.height);
-  const sizeVal = parseFloat(document.getElementById('sizeRange').value);
-  const hexW = hiCanvas.width * (sizeVal / 100);
-  const hexX = (hiCanvas.width - hexW) / 2 + (hiCanvas.width * (parseFloat(document.getElementById('posX').value)/100));
-  const hexY = hiCanvas.height * (parseFloat(document.getElementById('posY').value)/100);
-  const colorKey = document.getElementById('colorSelect').value;
-  const textMode = document.getElementById('textSelect').value;
-  const mainColor = colorKey==='gold' ? '#e8d5a3' : colorKey==='white' ? '#ffffff' : '#1a1228';
-  drawHexagram(ctx, selectedHex.lines, hexX, hexY, hexW, mainColor);
-  if (textMode === 'full') {
-    ctx.font = `bold ${hexW*0.3}px "Noto Serif JP"`;
-    ctx.fillStyle = mainColor; ctx.textAlign = 'center';
-    ctx.fillText(`第${selectedHex.no}卦 ${selectedHex.name}`, hiCanvas.width/2 + (hiCanvas.width * (parseFloat(document.getElementById('posX').value)/100)), hexY + hexW + (hexW*0.4));
+  const hi = document.createElement('canvas'); hi.width = uploadedImage.naturalWidth; hi.height = uploadedImage.naturalHeight; const ctx = hi.getContext('2d');
+  ctx.drawImage(uploadedImage, 0, 0, hi.width, hi.height);
+  const sz = parseFloat(document.getElementById('sizeRange').value), hw = hi.width * (sz / 100);
+  const hx = (hi.width - hw) / 2 + (hi.width * (parseFloat(document.getElementById('posX').value)/100));
+  const hy = hi.height * (parseFloat(document.getElementById('posY').value)/100);
+  const color = document.getElementById('colorSelect').value === 'gold' ? '#e8d5a3' : document.getElementById('colorSelect').value === 'white' ? '#ffffff' : '#1a1228';
+  drawHex(ctx, selectedHex.lines, hx, hy, hw, color);
+  if (document.getElementById('textSelect').value === 'full') {
+    ctx.font = `bold ${hw*0.3}px "Noto Serif JP"`; ctx.fillStyle = color; ctx.textAlign = 'center';
+    ctx.fillText(`第${selectedHex.no}卦 ${selectedHex.name}`, hi.width/2 + (hi.width*(parseFloat(document.getElementById('posX').value)/100)), hy + hw + (hw*0.4));
   }
-  const a = document.createElement('a'); a.download = `STELLA_TERRA_${selectedHex.no}_${selectedHex.name}.png`; a.href = hiCanvas.toDataURL('image/png'); a.click();
+  const a = document.createElement('a'); a.download = `OMAMORI_${selectedHex.no}_${selectedHex.name}.png`; a.href = hi.toDataURL('image/png'); a.click();
 }
 </script>
 </body>
